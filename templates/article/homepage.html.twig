@@ -1,91 +1,75 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% include'components/nav.html.twig' with {'title' : title} %}
+
     <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-12">
+                <div class="text-center">
+                    <img src="{{ asset('images/home_banner.jpg') }}" alt="" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <h2>yonex Badmintonrackets</h2>
+        <span>4 resultaten</span>
+        <select name="" id="">
+            <option value="volvo">bestverkocht</option>
+            <option value="saab">prijs: laag -> hoog</option>
+            <option value="mercedes">prijs: hoog - laag</option>
+            <option value="audi">verschijningdatum</option>
+        </select>
         <div class="row">
-
-            <!-- Article List -->
-
-            <div class="col-sm-12 col-md-8">
-
-                <!-- H1 Article -->
-                <a class="main-article-link" href="#">
-                    <div class="main-article mb-5 pb-3">
-                        <img src="{{ asset('images/meteor-shower.jpg') }}" alt="meteor shower">
-                        <h1 class="text-center mt-2">Ursid Meteor Shower: <br>Healthier than a regular shower?</h1>
-                    </div>
-                </a>
-
-                <!-- Supporting Articles -->
-
-                <div class="article-container my-1">
-                    <a href="{{ path('article_show',{slug:'Why-do-Asteroids-Taste-Like-Bacon'}) }}">
-                        <img class="article-img" src="{{ asset('images/asteroid.jpeg') }}">
-                        <div class="article-title d-inline-block pl-3 align-middle">
-                            <span>Why do Asteroids Taste Like Bacon?</span>
-                            <br>
-                            <span class="align-left article-details"><img class="article-author-img rounded-circle"
-                                                                          src="{{ asset('images/alien-profile.png') }}"> Mike Ferengi </span>
-                            <span class="pl-5 article-details float-right"> 3 hours ago</span>
-                        </div>
-                    </a>
+            <div class="item-block col-6 col-md-4">
+                <div class="item-img col-12">
+                    <img src="{{ asset('images/photo01.jpg') }}" alt="" class="img-fluid">
                 </div>
-
-                <div class="article-container my-1">
-                    <a href="#">
-                        <img class="article-img" src="{{ asset('images/mercury.jpeg') }}">
-                        <div class="article-title d-inline-block pl-3 align-middle">
-                            <span>Life on Planet Mercury: <br> Tan, Relaxing and Fabulous</span>
-                            <br>
-                            <span class="align-left article-details"><img class="article-author-img rounded-circle"
-                                                                          src="{{ asset('images/astronaut-profile.png') }}"> Amy Oort </span>
-                            <span class="pl-5 article-details float-right"> 6 days ago</span>
-                        </div>
-                    </a>
+                <div class="item-detail col-12">
+                    <small>yonex</small>
+                    <span>Yonex Voltric Z Force</span>
+                    <span>€170,00</span><br>
+                    <small>andviesprijs €219,99</small>
                 </div>
-
-                <div class="article-container my-1">
-                    <a href="#">
-                        <img class="article-img" src="{{ asset('images/lightspeed.png') }}">
-                        <div class="article-title d-inline-block pl-3 align-middle">
-                            <span>Light Speed Travel: <br> Fountain of Youth or Fallacy</span>
-                            <br>
-                            <span class="align-left article-details"><img class="article-author-img rounded-circle"
-                                                                          src="{{ asset('images/astronaut-profile.png') }}"> Amy Oort </span>
-                            <span class="pl-5 article-details float-right"> 2 weeks ago</span>
-                        </div>
-                    </a>
-                </div>
-
             </div>
 
-            <!-- Right bar ad space -->
-
-
-            <div class="col-sm-12 col-md-4 text-center">
-                <div class="ad-space mx-auto mt-1 pb-2 pt-2">
-                    <img class="advertisement-img" src="{{ asset('images/space-ice.png') }}">
-                    <p><span class="advertisement-text">New:</span> Space Ice Cream!</p>
-                    <button class="btn btn-info">Buy Now!</button>
+            <div class="item-block col-6 col-md-4">
+                <div class="item-img col-12">
+                    <img src="{{ asset('images/photo01.jpg') }}" alt="" class="img-fluid">
                 </div>
-
-                <div class="quote-space pb-2 pt-2 px-5">
-                    <h3 class="text-center pb-3">Trending Quotes</h3>
-                    <p><i class="fa fa-comment"></i> "Our two greatest problems are gravity and paperwork. We can lick
-                        gravity, but sometimes the paperwork is overwhelming." <br>— <a
-                                href="https://en.wikipedia.org/wiki/Wernher_von_Braun">Wernher von Braun, Rocket
-                            Engineer</a></p>
-
-                    <p class="pt-4"><i class="fa fa-comment"></i> "Let's face it, space is a risky business. I always
-                        considered every launch a barely controlled explosion." <br>— <a
-                                href="https://en.wikipedia.org/wiki/Aaron_Cohen_(Deputy_NASA_administrator)">Aaron
-                            Cohen, NASA Administrator</a></p>
-
-                    <p class="pt-4"><i class="fa fa-comment"></i> "If offered a seat on a rocket ship, don't ask what
-                        seat. Just get on."<br>— <a href="https://en.wikipedia.org/wiki/Christa_McAuliffe">Christa
-                            McAuliffe, Challenger Astronaut</a>
+                <div class="item-detail col-12">
+                    <small>yonex</small>
+                    <span>Yonex Voltric Z Force</span>
+                    <span>€170,00</span><br>
+                    <small>andviesprijs €219,99</small>
+                </div>
+            </div>
+            <div class="item-block col-6 col-md-4">
+                <div class="item-img col-12">
+                    <img src="{{ asset('images/photo01.jpg') }}" alt="" class="img-fluid">
+                </div>
+                <div class="item-detail col-12">
+                    <small>yonex</small>
+                    <span>Yonex Voltric Z Force</>
+                    <span>€170,00</span><br>
+                    <small>andviesprijs €219,99</small>
+                </div>
+            </div>
+            <div class="item-block col-6 col-md-4">
+                <div class="item-img col-12">
+                    <img src="{{ asset('images/photo01.jpg') }}" alt="" class="img-fluid">
+                </div>
+                <div class="item-detail col-12">
+                    <small>yonex</small>
+                    <span>Yonex Voltric Z Force</span>
+                    <span>€170,00</span><br>
+                    <small>andviesprijs €219,99</small>
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
+
