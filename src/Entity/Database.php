@@ -16,7 +16,7 @@ class Database
     private $pass = 'root123';
     private $dbname = 'symfony_shop';
 
-    private $dbh;
+    public $dbh;
     private $error;
     private $stmt;
 

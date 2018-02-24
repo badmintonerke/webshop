@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Database;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -24,11 +25,12 @@ class DashboardController extends AbstractController
      */
     public function dashboard()
     {
-        if (isset($_SESSION['user'])) {
-            $user = $_SESSION['user'];
-            echo $user->use_role;
-        } else {
-            return $this->redirectToRoute('login', []);
+        $db = new Database();
+        $config = new \PHPAuth\Config($db->dbh);
+        $auth = new \PHPAuth\Auth($db->dbh, $config);
+
+        if (!$auth->isLogged()) {
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('dashboard/base.html.twig', [

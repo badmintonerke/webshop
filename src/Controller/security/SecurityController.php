@@ -26,6 +26,67 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', [
             'title' => 'ac-sport',
             'error' => $error,
+            'form_error' => '',
+        ]);
+    }
+
+    /**
+     * @Route("/login", name="login_check", methods={"POST"})
+     */
+    public function loginCheck(Request $request)
+    {
+
+        $db = new Database();
+        $config = new \PHPAuth\Config($db->dbh);
+        $auth = new \PHPAuth\Auth($db->dbh, $config);
+
+        $name = $request->request->get("name");
+        $password = $request->request->get("password");
+        $remember = intval($request->request->get("remember-me") ?? 0);
+        $formError = $auth->login($name, $password, $remember);
+
+        return $this->render('security/login.html.twig', [
+            'title' => 'ac-sport',
+            'error' => $name . ' ' . $password,
+            'form_error' => $formError['message'],
+        ]);
+    }
+
+    /**
+     * @Route("/register",name="register_vieuw" , methods={"GET"})
+     */
+    public function register()
+    {
+        $error = 'register controller';
+
+        return $this->render('security/register.html.twig', [
+            'title' => 'ac-sport',
+            'error' => $error,
+            'form_error' => '',
+        ]);
+    }
+
+    /**
+     * @Route("/register",name="register_handler" , methods={"POST"})
+     */
+    public function register_handler(Request $request)
+    {
+        $error = 'register controller handler';
+
+        $db = new Database();
+        $config = new \PHPAuth\Config($db->dbh);
+        $auth = new \PHPAuth\Auth($db->dbh, $config);
+
+        $name = $request->request->get("name");
+        $password = $request->request->get("password");
+        $password2 = $request->request->get("password2");
+
+        $formError = $auth->register($name, $password, $password2);
+
+        return $this->render('security/register.html.twig', [
+            'title' => 'ac-sport',
+            'error' => $error,
+            'form_error' => $formError['message'],
         ]);
     }
 
@@ -34,29 +95,10 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
-        unset($_SESSION['user']);
-    }
-
-    /**
-     * @Route("/login", name="login_check", methods={"POST"})
-     */
-    public function loginCheck(Request $request)
-    {
-        $name = $request->request->get("name");
-        $password = $request->request->get("password");
-
         $db = new Database();
-        $db->query("SELECT * FROM symfony_shop.users WHERE use_name = :userName");
-        $db->bind(':userName', $name);
-        $user = $db->single();
-        if ($password == $user->use_password) {
-            echo 'auth';
-            $_SESSION['user'] = $user;
-        }
-
-        return $this->render('security/login.html.twig', [
-            'title' => 'ac-sport',
-            'error' => $name . ' ' . $password,
-        ]);
+        $config = new \PHPAuth\Config($db->dbh);
+        $auth = new \PHPAuth\Auth($db->dbh, $config);
+        $hash = $auth->getSessionHash();
+        $auth->logout($hash);
     }
 }
