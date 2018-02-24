@@ -1,4 +1,7 @@
 {
+    "bjeavons/zxcvbn-php": {
+        "version": "0.3.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -80,6 +83,9 @@
     "ocramius/proxy-manager": {
         "version": "2.1.1"
     },
+    "phpauth/phpauth": {
+        "version": "1.1.1"
+    },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
     },
@@ -88,6 +94,9 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "0.4.0"
+    },
+    "phpmailer/phpmailer": {
+        "version": "v5.2.26"
     },
     "psr/cache": {
         "version": "1.0.1"
