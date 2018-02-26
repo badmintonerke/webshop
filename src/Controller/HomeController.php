@@ -20,6 +20,7 @@ class HomeController extends AbstractController
      */
     public function homepage()
     {
+
         return $this->render('article/homepage.html.twig', [
             'title' => "ac-sport",
         ]);

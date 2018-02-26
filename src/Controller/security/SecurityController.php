@@ -16,17 +16,33 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SecurityController extends AbstractController
 {
+    private $db;
+    private $config;
+    private $auth;
+
+    public function __construct()
+    {
+        $this->db = new Database();
+        $this->config = new \PHPAuth\Config($this->db->dbh);
+        $this->auth = new \PHPAuth\Auth($this->db->dbh, $this->config);
+    }
+
     /**
      * @Route("/login", name="login",methods={"GET"})
      */
-    public function login($error = '')
+    public function login(Request $request)
     {
-        $error = 'sdfq0';
+
+        $redirectUrl = $request->query->get("redirectUrl");
+        if ($this->auth->isLogged()) {
+            return $this->redirectToRoute('homepage');
+        }
 
         return $this->render('security/login.html.twig', [
             'title' => 'ac-sport',
-            'error' => $error,
+            'error' => '',
             'form_error' => '',
+            'form_redirectTo' => $redirectUrl,
         ]);
     }
 
@@ -35,15 +51,19 @@ class SecurityController extends AbstractController
      */
     public function loginCheck(Request $request)
     {
-
-        $db = new Database();
-        $config = new \PHPAuth\Config($db->dbh);
-        $auth = new \PHPAuth\Auth($db->dbh, $config);
+        $redirectUrl = $request->request->get("redirectUrl");
 
         $name = $request->request->get("name");
         $password = $request->request->get("password");
         $remember = intval($request->request->get("remember-me") ?? 0);
-        $formError = $auth->login($name, $password, $remember);
+        $formError = $this->auth->login($name, $password, $remember);
+
+        if ($this->auth->isLogged()) {
+            if ($redirectUrl)
+                return $this->redirectToRoute($redirectUrl);
+
+            return $this->redirectToRoute('homepage');
+        }
 
         return $this->render('security/login.html.twig', [
             'title' => 'ac-sport',
@@ -73,15 +93,11 @@ class SecurityController extends AbstractController
     {
         $error = 'register controller handler';
 
-        $db = new Database();
-        $config = new \PHPAuth\Config($db->dbh);
-        $auth = new \PHPAuth\Auth($db->dbh, $config);
-
         $name = $request->request->get("name");
         $password = $request->request->get("password");
         $password2 = $request->request->get("password2");
 
-        $formError = $auth->register($name, $password, $password2);
+        $formError = $this->auth->register($name, $password, $password2);
 
         return $this->render('security/register.html.twig', [
             'title' => 'ac-sport',
@@ -95,10 +111,9 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
-        $db = new Database();
-        $config = new \PHPAuth\Config($db->dbh);
-        $auth = new \PHPAuth\Auth($db->dbh, $config);
-        $hash = $auth->getSessionHash();
-        $auth->logout($hash);
+        $hash = $this->auth->getSessionHash();
+        $this->auth->logout($hash);
+
+        return $this->redirectToRoute('login');
     }
 }

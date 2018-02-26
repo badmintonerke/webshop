@@ -17,12 +17,41 @@
 
 <body>
 
+<div class="row">
+    <div class="col-2">
+        <nav id="sidebar">
+            <!-- Sidebar Header -->
+            <div class="sidebar-header">
+                <h3>Settings</h3>
+            </div>
+            <!-- Sidebar Links -->
+            <ul class="list-unstyled components">
+                <li class="active"><a href="{{ path('dashboard_home') }}">Home</a></li>
+                <li><a href="#">About</a></li>
 
-{% block body %}welkom admin{% endblock %}
+                <li><!-- Link with dropdown items -->
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li><a href="#">Page</a></li>
+                        <li><a href="#">Page</a></li>
+                        <li><a href="#">Page</a></li>
+                    </ul>
+
+                <li><a href="#">Portfolio</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-10">
+        <h2>dashboard</h2>
+        {% block body %}welkom admin{% endblock %}
+    </div>
+</div>
+
 
 <footer class="footer">
     <div class="container text-center">
-        <span class="text-muted"></span>
+        <span class="text-muted">footer</span>
     </div>
 </footer>
 
